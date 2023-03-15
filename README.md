@@ -10,7 +10,7 @@ the 6902 library is designed to provide a lightweight and modular interface to c
 
 ***the LCD driver has not yet been implemented.
 
-n.b.: the 6902 only takes one clock cycle per instruction, regardless of instruction or addressing mode.
+n.b.: the 6902 only takes one clock cycle per instruction, regardless of instruction or addressing mode. also, for jsr and brk, the program counter pushed to the stack is the location of the instruction that will be executed after return (either rti or rts).
 
 ## client
 it's a work-in-progress.
