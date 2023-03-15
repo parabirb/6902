@@ -51,6 +51,8 @@ export default class CPU {
                 address: this.PC
             });
             this.PC += 2;
+            // set the formatted instruction
+            formattedInstruction += ` ${instruction.mode.replace("a", `$${operandAddress.toString(16).padStart(4, "0")}`)}`;
             // if we're indexing with x or y, add x or y into the operand address
             if (instruction.mode === "a,x") operandAddress += this.X;
             else if (instruction.mode === "a,y") operandAddress += this.Y;
@@ -61,14 +63,14 @@ export default class CPU {
                     address: operandAddress + 1
                 }) << 8) | this.dataBus({read: true, address: operandAddress});
             }
-            // set the formatted instruction
-            formattedInstruction += ` ${instruction.mode.replace("a", `$${operandAddress.toString(16).padStart(4, "0")}`)}`;
         }
         // zero page, zero page indexed with x, zero page indexed with y, zero page indirect
         else if (instruction.mode === "zp" || instruction.mode === "zp,x" || instruction.mode === "zp,y" || instruction.mode === "(zp,x)" || instruction.mode === "(zp),y") {
             // read the initial operand address and increment the program counter
             operandAddress = this.dataBus({ read: true, address: this.PC });
             this.PC++;
+            // set the formatted instruction
+            formattedInstruction += ` ${instruction.mode.replace("zp", `$${operandAddress.toString(16).padStart(2, "0")}`)}`;
             // if we're indexing with x or y, add x or y into the operand address
             if (instruction.mode === "zp,x" || instruction.mode === "(zp,x)") operandAddress = (operandAddress + this.X) & 0xff;
             else if (instruction.mode === "zp,y") operandAddress = (operandAddress + this.Y) & 0xff;
@@ -79,8 +81,6 @@ export default class CPU {
                     address: operandAddress + 1
                 }) << 8) | this.dataBus({read: true, address: operandAddress})) + (instruction.mode === "(zp),y" ? this.Y : 0);
             }
-            // set the formatted instruction
-            formattedInstruction += ` ${instruction.mode.replace("zp", `$${operandAddress.toString(16).padStart(2, "0")}`)}`;
         }
         // relative
         else if (instruction.mode === "r") {
