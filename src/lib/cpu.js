@@ -76,8 +76,13 @@ export default class CPU {
         }
         // relative
         else if (instruction.mode === "r") {
-            // read the operand address and increment the program counter
-            operandAddress = this.dataBus({ read: true, address: this.PC }) + this.PC - 1;
+            // read the offset
+            let offset = this.dataBus({ read: true, address: this.PC });
+            // check its signature
+            if (offset >> 7) offset |= 0xffffff00;
+            // set the operand address
+            operandAddress = this.PC + offset - 1;
+            // increment the program counter
             this.PC++;
         }
         // run it
