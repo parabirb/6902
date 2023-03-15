@@ -1,11 +1,12 @@
 {
-  "name": "6902",
-  "version": "1.0.0",
-  "index": "src/lib/cpu.js",
-  "description": "a simple 6502 emulator written in javascript.",
-  "scripts": {
-  },
-  "author": "parabirb",
-  "license": "Unlicense",
-  "type": "module"
+    "name": "6902",
+    "version": "1.0.0",
+    "index": "src/lib/index.js",
+    "description": "a simple 6502 emulator written in javascript.",
+    "scripts": {
+        "test": "node src/test/index.js"
+    },
+    "author": "parabirb",
+    "license": "Unlicense",
+    "type": "module"
 }

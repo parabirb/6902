@@ -1,11 +1,8 @@
 // deps
 import fs from "fs";
-import CPU from "../lib/cpu.js";
-import map from "../lib/adapters/map.js";
-import ram from "../lib/adapters/ram.js";
-import rom from "../lib/adapters/rom.js";
-import via from "../lib/adapters/via.js";
-import led from "../lib/adapters/led.js";
+import { fileURLToPath } from "url";
+import { join, dirname } from "path";
+import { CPU, led, map, ram, rom, via } from "../lib/index.js";
 
 // create the CPU
 let cpu = new CPU({
@@ -16,9 +13,9 @@ let cpu = new CPU({
                 output: console.log
             })
         }, 0x6000),
-        rom(fs.readFileSync("blink.bin"), 0x8000)
+        rom(fs.readFileSync(join(dirname(fileURLToPath(import.meta.url)), "blink.bin")), 0x8000)
     )
 });
 
 // clock
-setInterval(() => cpu.clock(), 100);
+setInterval(() => cpu.clock(), 200);

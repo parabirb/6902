@@ -77,7 +77,7 @@ export default class CPU {
         // relative
         else if (instruction.mode === "r") {
             // read the operand address and increment the program counter
-            operandAddress = this.dataBus({ read: true, address: this.PC }) + this.PC;
+            operandAddress = this.dataBus({ read: true, address: this.PC }) + this.PC - 1;
             this.PC++;
         }
         // run it
