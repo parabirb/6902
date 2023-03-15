@@ -81,7 +81,7 @@ export default class CPU {
             // check its signature
             if (offset >> 7) offset |= 0xffffff00;
             // set the operand address
-            operandAddress = this.PC + offset - 1;
+            operandAddress = this.PC + offset + 1;
             // increment the program counter
             this.PC++;
         }
