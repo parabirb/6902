@@ -39,6 +39,8 @@ for more in-depth examples, see `src/test`.
 it's a work-in-progress.
 
 ## special thanks
+shoutout to pepsipu for telling me to write an emulator
+
 thank you to:
 * ben eater for the inspiration for this project and for [reference 6502 assembly](https://eater.net/6502)
 * the writers of wikibooks for their [extensive documentation](https://en.wikibooks.org/wiki/6502_Assembly) of 6502 assembly
