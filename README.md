@@ -6,11 +6,34 @@ the 6902 library is designed to provide a lightweight and modular interface to c
 
 *BCD has not yet been implemented. illegal opcodes and 65c22-exclusive instructions have not been and will not be implemented. attempting to execute one will result in an error.
 
-**VIAs have not yet been fully implemented.
+**VIAs have not yet been fully implemented. it is in a basic working state at the moment.
 
-***the LCD driver has not yet been implemented.
+***the LCD driver has not yet been fully implemented. it is in a basic working state at the moment.
 
 n.b.: the 6902 only takes one clock cycle per instruction, regardless of instruction or addressing mode. also, for jsr and brk, the program counter pushed to the stack is the location of the instruction that will be executed after return (either rti or rts).
+
+example usage:
+```js
+// deps
+import {CPU, rom} from "./src/lib/index.js";
+
+// create a rom full of nops
+let buffer = Buffer.alloc(65536);
+for (let i = 0; i < 65536; i++) {
+    if (i === 0xfffc || i === 0xffd) i = 0;
+    else i = 0xea;
+}
+
+// create the CPU
+let cpu = new CPU({
+    dataBus: rom(buffer)
+});
+
+// go through one clock cycle and log the instruction executed
+console.log(cpu.clock());
+```
+
+for more in-depth examples, see `src/test`.
 
 ## client
 it's a work-in-progress.

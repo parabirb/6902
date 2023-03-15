@@ -4,7 +4,7 @@
     "index": "src/lib/index.js",
     "description": "a simple 6502 emulator written in javascript.",
     "scripts": {
-        "test": "node src/test/index.js"
+        "test": "node src/test/hello_world.js"
     },
     "author": "parabirb",
     "license": "Unlicense",

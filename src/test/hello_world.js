@@ -4,11 +4,13 @@ import {fileURLToPath} from "url";
 import {join, dirname} from "path";
 import {CPU, lcd, map, ram, rom, via} from "../lib/index.js";
 
+// character array
+let array = [];
+for (let i = 0; i < 32; i++) array[i] = "";
+
 // lcd output function
-function update(array) {
-    console.clear();
-    console.log(array.slice(0, 16).join(""));
-    console.log(array.slice(16).join(""));
+function update(arr) {
+    array = arr;
 }
 
 // create the CPU
@@ -23,4 +25,9 @@ let cpu = new CPU({
 });
 
 // clock
-setInterval(() => cpu.clock(), 20);
+setInterval(() => {
+    console.clear();
+    console.log(`${cpu.clock()}
+${array.slice(0, 16).join("")}
+${array.slice(16).join("")}`)
+}, 100);

@@ -28,6 +28,8 @@ export default class CPU {
     clock() {
         // find the relevant instruction
         let instruction = instructions[this.dataBus({read: true, address: this.PC}).toString(16).padStart(2, "0")];
+        // formatted instruction for debugging
+        let formattedInstruction = `${this.PC.toString(16).padStart(4, "0")}: ${instruction.controller.name}`;
         // increment the program counter
         this.PC++;
         // calculate the operand address
@@ -36,6 +38,8 @@ export default class CPU {
         if (instruction.mode === "#") {
             // set the operand address
             operandAddress = this.PC;
+            // set the formatted instruction
+            formattedInstruction += ` #$${this.dataBus({ read: true, address: operandAddress }).toString(16).padStart(2, "0")}`;
             // increment the program counter
             this.PC++;
         }
@@ -57,6 +61,8 @@ export default class CPU {
                     address: operandAddress + 1
                 }) << 8) | this.dataBus({read: true, address: operandAddress});
             }
+            // set the formatted instruction
+            formattedInstruction += ` ${instruction.mode.replace("a", `$${operandAddress.toString(16).padStart(4, "0")}`)}`;
         }
         // zero page, zero page indexed with x, zero page indexed with y, zero page indirect
         else if (instruction.mode === "zp" || instruction.mode === "zp,x" || instruction.mode === "zp,y" || instruction.mode === "(zp,x)" || instruction.mode === "(zp),y") {
@@ -73,6 +79,8 @@ export default class CPU {
                     address: operandAddress + 1
                 }) << 8) | this.dataBus({read: true, address: operandAddress})) + (instruction.mode === "(zp),y" ? this.Y : 0);
             }
+            // set the formatted instruction
+            formattedInstruction += ` ${instruction.mode.replace("zp", `$${operandAddress.toString(16).padStart(2, "0")}`)}`;
         }
         // relative
         else if (instruction.mode === "r") {
@@ -80,12 +88,16 @@ export default class CPU {
             let offset = this.dataBus({ read: true, address: this.PC });
             // check its signature
             if (offset >> 7) offset |= 0xffffff00;
-            // set the operand address
-            operandAddress = this.PC + offset + 1;
             // increment the program counter
             this.PC++;
+            // set the operand address
+            operandAddress = this.PC + offset;
+            // set the formatted instruction
+            formattedInstruction += ` $${(offset & 0xff).toString(16).padStart(2, "0")}`;
         }
         // run it
         instruction.controller({mode: instruction.mode, state: this, operandAddress});
+        // return debug info
+        return formattedInstruction;
     }
 };
