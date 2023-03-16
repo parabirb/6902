@@ -1,7 +1,7 @@
 # 6902
-6902 is a simple, lightweight, and public domain 6502 emulator written in javascript, consisting of two components (the library and the client).
+6902 is a simple, lightweight, and public domain 6502 emulator library written in javascript.
 
-## library
+## info
 the 6902 library is designed to provide a lightweight and modular interface to create a virtual cpu and step through clock cycles. on top of fully implementing the 6502 instruction set*, the 6902 library also provides multiple adapters for interfacing the CPU with VIAs**, LCDs***, RAM, and ROM. plus, it's remarkably simple to build adapters for any application you might need.
 
 *BCD has not yet been implemented. illegal opcodes and 65c22-exclusive instructions have not been and will not be implemented. attempting to execute one will result in an error.
@@ -34,9 +34,6 @@ console.log(cpu.clock());
 ```
 
 for more in-depth examples, see `src/test`.
-
-## client
-it's a work-in-progress.
 
 ## special thanks
 shoutout to pepsipu for telling me to write an emulator

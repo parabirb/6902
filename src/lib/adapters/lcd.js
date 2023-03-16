@@ -7,8 +7,6 @@ export default function lcd({ update }) {
     let cursor = 0;
     // rs
     let rs = 0;
-    // e
-    let e = 0;
     // pending instruction
     let instruction = 0;
     // port a function
@@ -42,8 +40,6 @@ export default function lcd({ update }) {
     function PB({ read, data }) {
         // if it's a read
         if (read) {
-            // get rid of e
-            if (e) e = 0;
             // return address
             return cursor;
         }
