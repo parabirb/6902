@@ -13,8 +13,6 @@ export default class Flags {
     }
     // set flag
     set(flag, value) {
-        // in case value is a boolean
-        value = +value;
         // get the bitmask of the flag
         let bitmask = 1 << this.flagArray.indexOf(flag);
         // if the flag is true
