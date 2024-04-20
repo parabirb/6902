@@ -20,8 +20,8 @@ import {CPU, rom} from "./src/lib/index.js";
 // create a rom full of nops
 let buffer = Buffer.alloc(65536);
 for (let i = 0; i < 65536; i++) {
-    if (i === 0xfffc || i === 0xfffd) i = 0;
-    else i = 0xea;
+    if (i === 0xfffc || i === 0xfffd) buffer[i] = 0;
+    else buffer[i] = 0xea;
 }
 
 // create the CPU
